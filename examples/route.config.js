@@ -158,10 +158,12 @@ const generateMiscRoutes = function(lang) {
   return [guideRoute, resourceRoute, themeRoute, indexRoute];
 };
 
+// 混入主要路由资源
 langs.forEach(lang => {
   route = route.concat(generateMiscRoutes(lang.lang));
 });
 
+// play首页
 route.push({
   path: '/play',
   name: 'play',
@@ -178,6 +180,7 @@ if (userLanguage.indexOf('zh-') !== -1) {
   defaultPath = '/fr-FR';
 }
 
+// defaultPath混入
 route = route.concat([{
   path: '/',
   redirect: defaultPath
