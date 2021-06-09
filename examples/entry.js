@@ -1,16 +1,33 @@
+/*
+ * @Author: atdow
+ * @Date: 2021-06-08 15:32:01
+ * @LastEditors: null
+ * @LastEditTime: 2021-06-09 14:24:33
+ * @Description: file description
+ */
 import Vue from 'vue';
 import entry from './app';
 import VueRouter from 'vue-router';
-import Element from 'main/index.js';
+/**
+  exports.alias = {
+    main: path.resolve(__dirname, '../src'),
+    packages: path.resolve(__dirname, '../packages'),
+    examples: path.resolve(__dirname, '../examples'),
+    'element-ui': path.resolve(__dirname, '../')
+  };
+*/
+import Element from 'main/index.js'; // ==> import Element from '../src/index.js'; build/config.js使用了alias
 import hljs from 'highlight.js';
-import routes from './route.config';
-import demoBlock from './components/demo-block';
+import routes from './route.config'; // route配置
+// 组件
+import demoBlock from './components/demo-block'; // 这个组件有点东西
 import MainFooter from './components/footer';
 import MainHeader from './components/header';
 import SideNav from './components/side-nav';
 import FooterNav from './components/footer-nav';
 import title from './i18n/title';
 
+// 样式部分
 import 'packages/theme-chalk/src/index.scss';
 import './demo-styles/index.scss';
 import './assets/styles/common.css';

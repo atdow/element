@@ -8,6 +8,12 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
+/**
+ * 这里的config非常重要 externals、alias、vue、jsexclude
+ * externals：由于是webpack.demo.js process.env.NODE_ENV==development,所以externals配置项是没有用上的
+ * alias：这里的alias是为了保证开发环境和线上环境统一。import Element from 'main/index.js'; ==> import Element from '../src/index.js';
+ * jsexclude：node_modules utils/popper.js utils/date.js
+ */
 const config = require('./config');
 
 const isProd = process.env.NODE_ENV === 'production';
@@ -15,9 +21,10 @@ const isPlay = !!process.env.PLAY_ENV;
 
 const webpackConfig = {
   mode: process.env.NODE_ENV,
+  // 入口分为production、play、development
   entry: isProd ? {
     docs: './examples/entry.js'
-  } : (isPlay ? './examples/play.js' : './examples/entry.js'),
+  } : (isPlay ? './examples/play.js' : './examples/entry.js'), // development入口是一个vue项目
   output: {
     path: path.resolve(process.cwd(), './examples/element-ui/'),
     publicPath: process.env.CI_ENV || '',
@@ -102,15 +109,16 @@ const webpackConfig = {
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
-      template: './examples/index.tpl',
+      template: './examples/index.tpl', // 使用的是tpl文件
       filename: './index.html',
       favicon: './examples/favicon.ico'
     }),
     new CopyWebpackPlugin([
-      { from: 'examples/versions.json' }
+      { from: 'examples/versions.json' } // 版本文件
     ]),
     new ProgressBarPlugin(),
     new VueLoaderPlugin(),
+    // 这里暂时不知道什么作用
     new webpack.DefinePlugin({
       'process.env.FAAS_ENV': JSON.stringify(process.env.FAAS_ENV)
     }),
@@ -128,6 +136,7 @@ const webpackConfig = {
   devtool: '#eval-source-map'
 };
 
+// 如果是生产环境，配置压缩、分包等
 if (isProd) {
   webpackConfig.externals = {
     vue: 'Vue',
