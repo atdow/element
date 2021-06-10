@@ -2,7 +2,7 @@
  * @Author: atdow
  * @Date: 2021-06-08 15:32:01
  * @LastEditors: null
- * @LastEditTime: 2021-06-09 14:24:33
+ * @LastEditTime: 2021-06-10 17:35:43
  * @Description: file description
  */
 import Vue from 'vue';
@@ -17,7 +17,7 @@ import VueRouter from 'vue-router';
   };
 */
 import Element from 'main/index.js'; // ==> import Element from '../src/index.js'; build/config.js使用了alias
-import hljs from 'highlight.js';
+import hljs from 'highlight.js'; // highlight.js是一个用于在任何web页面上着色显示各种示例源代码语法的JS库
 import routes from './route.config'; // route配置
 // 组件
 import demoBlock from './components/demo-block'; // 这个组件有点东西
@@ -42,6 +42,7 @@ Vue.component('main-header', MainHeader);
 Vue.component('side-nav', SideNav);
 Vue.component('footer-nav', FooterNav);
 
+// -------------是否 ele 用户start---------------------------
 const globalEle = new Vue({
   data: { $isEle: false } // 是否 ele 用户
 });
@@ -54,6 +55,7 @@ Vue.mixin({
     }
   }
 });
+// -------------是否 ele 用户end---------------------------
 
 Vue.prototype.$icon = icon; // Icon 列表页用
 
@@ -63,12 +65,16 @@ const router = new VueRouter({
   routes
 });
 
+// console.log('routes:',routes);
+
 router.afterEach(route => {
   // https://github.com/highlightjs/highlight.js/issues/909#issuecomment-131686186
+  // highlight控制
   Vue.nextTick(() => {
     const blocks = document.querySelectorAll('pre code:not(.hljs)');
     Array.prototype.forEach.call(blocks, hljs.highlightBlock);
   });
+  // document.title控制
   const data = title[route.meta.lang];
   for (let val in data) {
     if (new RegExp('^' + val, 'g').test(route.name)) {

@@ -9,7 +9,10 @@
 </template>
 
 <script>
-  import { use } from 'main/locale';
+  import { 
+    use // lang = l || defaultLang; import defaultLang from 'element-ui/src/locale/lang/zh-CN';
+  } from 'main/locale';
+  // 语言包
   import zhLocale from 'main/locale/lang/zh-CN';
   import enLocale from 'main/locale/lang/en';
   import esLocale from 'main/locale/lang/es';
@@ -48,7 +51,7 @@
     watch: {
       lang(val) {
         if (val === 'zh-CN') {
-          this.suggestJump();
+          this.suggestJump(); // 站点提示
         }
         localize(val);
       }
@@ -59,7 +62,7 @@
         if (process.env.NODE_ENV !== 'production') return;
 
         const href = location.href;
-        const preferGithub = localStorage.getItem('PREFER_GITHUB');
+        const preferGithub = localStorage.getItem('PREFER_GITHUB'); // TODO 这里的标志表示很清楚作用
         const cnHref = href.indexOf('eleme.cn') > -1 || href.indexOf('element-cn') > -1 || href.indexOf('element.faas') > -1;
         if (cnHref || preferGithub) return;
         setTimeout(() => {

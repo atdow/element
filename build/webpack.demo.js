@@ -79,6 +79,7 @@ const webpackConfig = {
           'sass-loader'
         ]
       },
+      // note 这里是非常核心的部分，用于解析官网md成网页
       {
         test: /\.md$/,
         use: [
