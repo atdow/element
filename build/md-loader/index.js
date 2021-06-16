@@ -1,3 +1,10 @@
+/*
+ * @Author: atdow
+ * @Date: 2021-06-08 15:32:01
+ * @LastEditors: null
+ * @LastEditTime: 2021-06-11 11:31:46
+ * @Description: file description
+ */
 const {
   stripScript,
   stripTemplate,
@@ -7,7 +14,7 @@ const md = require('./config');
 
 module.exports = function(source) {
   const content = md.render(source);
-
+  // demo解析起始结束标志
   const startTag = '<!--element-demo:';
   const startTagLen = startTag.length;
   const endTag = ':element-demo-->';
