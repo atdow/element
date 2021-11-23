@@ -14,7 +14,7 @@
       TabBar
     },
 
-    inject: ['rootTabs'],
+    inject: ['rootTabs'], // tabs-->this
 
     props: {
       panes: Array,
@@ -209,12 +209,13 @@
         setFocus,
         removeFocus
       } = this;
+      // 左右点击下一个和上一个
       const scrollBtn = scrollable
         ? [
           <span class={['el-tabs__nav-prev', scrollable.prev ? '' : 'is-disabled']} on-click={scrollPrev}><i class="el-icon-arrow-left"></i></span>,
           <span class={['el-tabs__nav-next', scrollable.next ? '' : 'is-disabled']} on-click={scrollNext}><i class="el-icon-arrow-right"></i></span>
         ] : null;
-
+      // console.log('panes:', panes);
       const tabs = this._l(panes, (pane, index) => {
         let tabName = pane.name || pane.index || index;
         const closable = pane.isClosable || editable;
@@ -266,7 +267,15 @@
               role="tablist"
               on-keydown={ changeTab }
             >
+              {
+                /**
+                 * 高亮时下面的滑块
+                 */
+              }
               {!type ? <tab-bar tabs={panes}></tab-bar> : null}
+              {
+                // 每一个的tab
+              }
               {tabs}
             </div>
           </div>

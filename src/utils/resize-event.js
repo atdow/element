@@ -1,3 +1,10 @@
+/*
+ * @Author: atdow
+ * @Date: 2021-06-08 15:32:02
+ * @LastEditors: null
+ * @LastEditTime: 2021-11-23 16:44:11
+ * @Description: file description
+ */
 import ResizeObserver from 'resize-observer-polyfill';
 
 const isServer = typeof window === 'undefined';
@@ -16,7 +23,7 @@ const resizeHandler = function(entries) {
 
 /* istanbul ignore next */
 export const addResizeListener = function(element, fn) {
-  if (isServer) return;
+  if (isServer) return; // 是否是服务器
   if (!element.__resizeListeners__) {
     element.__resizeListeners__ = [];
     element.__ro__ = new ResizeObserver(resizeHandler);

@@ -32,7 +32,7 @@
     data() {
       return {
         currentName: this.value || this.activeName,
-        panes: []
+        panes: [] // el-tab-pane实例数组
       };
     },
 
@@ -55,9 +55,12 @@
     },
 
     methods: {
+      // 计算出el-tab-pane实例数组(这个思路可以去借鉴)
       calcPaneInstances(isForceUpdate = false) {
         if (this.$slots.default) {
+          // console.log('this.$slots.default:', this.$slots.default);
           const paneSlots = this.$slots.default.filter(vnode => vnode.tag &&
+            // note 这里使用vnode.componentOptions来取值是因为确保是el-tab-pane，不是组件的vnode.componentOptions为空
             vnode.componentOptions && vnode.componentOptions.Ctor.options.name === 'ElTabPane');
           // update indeed
           const panes = paneSlots.map(({ componentInstance }) => componentInstance);
@@ -122,7 +125,7 @@
         tabPosition,
         stretch
       } = this;
-
+      // console.log('panes:', panes);
       const newButton = editable || addable
         ? (
           <span
@@ -150,12 +153,21 @@
       };
       const header = (
         <div class={['el-tabs__header', `is-${tabPosition}`]}>
+          {
+            // 待定解析
+          }
           {newButton}
           <tab-nav { ...navData }></tab-nav>
         </div>
       );
       const panels = (
         <div class="el-tabs__content">
+          {
+            /**
+             * [VNode, VNode, VNode, VNode]
+             * el-tab-pane
+             */
+          }
           {this.$slots.default}
         </div>
       );

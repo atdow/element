@@ -9,7 +9,7 @@
 </template>
 
 <script>
-  import { 
+  import {
     use // lang = l || defaultLang; import defaultLang from 'element-ui/src/locale/lang/zh-CN';
   } from 'main/locale';
   // 语言包

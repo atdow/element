@@ -2,7 +2,7 @@
  * @Author: atdow
  * @Date: 2021-06-08 15:32:01
  * @LastEditors: null
- * @LastEditTime: 2021-06-11 11:31:46
+ * @LastEditTime: 2021-06-18 12:02:06
  * @Description: file description
  */
 const {
@@ -14,6 +14,7 @@ const md = require('./config');
 
 module.exports = function(source) {
   const content = md.render(source);
+  // console.log('content:', content);
   // demo解析起始结束标志
   const startTag = '<!--element-demo:';
   const startTagLen = startTag.length;
@@ -31,8 +32,8 @@ module.exports = function(source) {
     output.push(content.slice(start, commentStart));
 
     const commentContent = content.slice(commentStart + startTagLen, commentEnd);
-    const html = stripTemplate(commentContent);
-    const script = stripScript(commentContent);
+    const html = stripTemplate(commentContent); // 将script和style剔除掉，就只剩下html
+    const script = stripScript(commentContent); // 只匹配script
     let demoComponentContent = genInlineComponentText(html, script);
     const demoComponentName = `element-demo${id}`;
     output.push(`<template slot="source"><${demoComponentName} /></template>`);

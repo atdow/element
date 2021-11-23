@@ -1,3 +1,10 @@
+<!--
+ * @Author: atdow
+ * @Date: 2021-06-08 15:32:01
+ * @LastEditors: null
+ * @LastEditTime: 2021-11-23 16:40:18
+ * @Description: file description
+-->
 <template>
   <div
     class="el-tab-pane"
@@ -37,6 +44,7 @@
       isClosable() {
         return this.closable || this.$parent.closable;
       },
+      // 从$parent中获取
       active() {
         const active = this.$parent.currentName === (this.name || this.index);
         if (active) {
