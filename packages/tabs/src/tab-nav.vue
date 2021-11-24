@@ -37,7 +37,7 @@
         scrollable: false,
         navOffset: 0,
         isFocus: false,
-        focusable: true
+        focusable: true // 是否允许foucus
       };
     },
 
@@ -55,8 +55,11 @@
 
     methods: {
       scrollPrev() {
+        // `offset${firstUpperCase(this.sizeName)}` ==> offsetWidth||offsetHeight
         const containerSize = this.$refs.navScroll[`offset${firstUpperCase(this.sizeName)}`];
         const currentOffset = this.navOffset;
+        // console.log('containerSize:', containerSize);
+        // console.log('currentOffset:', currentOffset);
 
         if (!currentOffset) return;
 
@@ -228,6 +231,13 @@
 
         const tabLabelContent = pane.$slots.label || pane.label;
         const tabindex = pane.active ? 0 : -1;
+        // note aria-controls用法：https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-controls
+        /**
+         * ARIA only modifies the accessibility tree for an element and how assistive technology presents the content to users.
+         * ARIA doesn't change anything about an elements function or behavior.
+         */
+
+        // BackSpace:46 Delete:8
         return (
           <div
             class={{

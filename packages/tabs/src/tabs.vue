@@ -81,7 +81,7 @@
         if (pane.disabled) return;
         ev.stopPropagation();
         this.$emit('edit', pane.name, 'remove');
-        this.$emit('tab-remove', pane.name);
+        this.$emit('tab-remove', pane.name); // tab-remove需要用户输入才能生效
       },
       handleTabAdd() {
         this.$emit('edit', null, 'add');
